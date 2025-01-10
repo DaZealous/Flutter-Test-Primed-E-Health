@@ -4,12 +4,11 @@ import 'package:flutter_assessment/presentation/auth/login/state/login_screen_st
 import 'package:flutter_assessment/utils/theme.dart';
 import 'package:flutter_assessment/utils/validators.dart';
 import 'package:flutter_assessment/widgets/field_text.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'controller/login_screen_controller.dart';
 
-class LoginScreen extends HookConsumerWidget {
+class LoginScreen extends ConsumerWidget {
   LoginScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
@@ -29,18 +28,6 @@ class LoginScreen extends HookConsumerWidget {
 
     final state = ref.watch(loginScreenControllerProvider);
     final controller = ref.read(loginScreenControllerProvider.notifier);
-
-    final slideUpController =
-    useAnimationController(duration: const Duration(milliseconds: 1500));
-    final slideUpAnimation = animationService.createSlideAnimation(slideUpController, 0.0, 1.0);
-
-    useEffect(() {
-      Future.delayed(
-        const Duration(milliseconds: 1000),
-      ).whenComplete(() => slideUpController.forward());
-      return null;
-    }, []);
-
 
     return Scaffold(
       backgroundColor: AppColors.primary,
@@ -82,25 +69,25 @@ class LoginScreen extends HookConsumerWidget {
                 // const Spacer(),
                 Column(
                   children: [
-                    SlideTransition(
-                      position: slideUpAnimation,
-                      child: DecoratedBox(
-                        decoration: const BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(32),
-                          ),
+                    DecoratedBox(
+                      decoration: const BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(32),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(24),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: SingleChildScrollView(
                           child: Column(
                             children: [
                               const SizedBox(height: 16),
                               FieldText(
                                 labelText: 'Email address',
-                                hintText: 'Input your registered email or phone ',
+                                hintText:
+                                    'Input your registered email or phone ',
                                 controller: emailController,
-                                onChanged: (String? value){
+                                onChanged: (String? value) {
                                   formKey.currentState?.validate();
                                 },
                                 validator: (value) =>
@@ -110,7 +97,7 @@ class LoginScreen extends HookConsumerWidget {
                               FieldText(
                                 hintText: 'Input your password account',
                                 labelText: 'Password',
-                                onChanged: (String? value){
+                                onChanged: (String? value) {
                                   formKey.currentState?.validate();
                                   controller.updatePasswordValid(value);
                                 },
@@ -126,7 +113,8 @@ class LoginScreen extends HookConsumerWidget {
                               _buildPasswordErrorWidget(textTheme, state),
                               const SizedBox(height: 14),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Checkbox(
                                     activeColor: AppColors.primary,
@@ -145,7 +133,8 @@ class LoginScreen extends HookConsumerWidget {
                               const SizedBox(height: 14),
                               ElevatedButton(
                                 onPressed: () {
-                                  if(formKey.currentState?.validate() ?? false){
+                                  if (formKey.currentState?.validate() ??
+                                      false) {
                                     controller.navigateToHome(context);
                                   }
                                 },
@@ -172,17 +161,14 @@ class LoginScreen extends HookConsumerWidget {
 
   Widget _buildPasswordErrorWidget(textTheme, state) {
     return Padding(
-      padding:
-      const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
         children: [
           Container(
             width: 10,
             height: 10,
             decoration: BoxDecoration(
-                color: state.passwordValid
-                    ? Colors.green
-                    : Colors.red,
+                color: state.passwordValid ? Colors.green : Colors.red,
                 shape: BoxShape.circle),
           ),
           const SizedBox(
@@ -191,21 +177,15 @@ class LoginScreen extends HookConsumerWidget {
           Text(
             'At least 8 characters',
             style: textTheme.labelMedium?.copyWith(
-              color: state.passwordValid
-                  ? Colors.green
-                  : Colors.red,
+              color: state.passwordValid ? Colors.green : Colors.red,
             ),
           ),
           const SizedBox(
             width: 5,
           ),
           Icon(
-            state.passwordValid
-                ? Icons.check
-                : Icons.close,
-            color: state.passwordValid
-                ? Colors.green
-                : Colors.red,
+            state.passwordValid ? Icons.check : Icons.close,
+            color: state.passwordValid ? Colors.green : Colors.red,
             size: 20,
           )
         ],
