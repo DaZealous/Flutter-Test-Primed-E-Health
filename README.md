@@ -1,16 +1,34 @@
-# flutter_assessment
+# Flutter Developer Assessment
 
-A new Flutter project.
+A Flutter application built as a coding task to demonstrate implementation of a login flow, state management, and navigation.
+
+## Features
+
+### Login Screen
+- Email and password validation:
+    - Ensures a valid email format.
+    - Password must have at least 8 characters.
+- Displays error messages for validation failures.
+
+### Home Screen
+- Displays a list of items fetched from mock data (local JSON).
+
+### Detail Screen
+- Navigates to a detail view displaying more information about the selected item.
+
+## Tools & Libraries Used
+
+- **State Management**: [Riverpod](https://pub.dev/packages/riverpod)
+- **Dependency Injection**: [GetIt](https://pub.dev/packages/get_it) and [Injectable](https://pub.dev/packages/injectable)
+- **Animations**: Built-in Flutter AnimationController
+- **Testing**: Flutter's testing framework
+
+## Bonus Features
+- Added loading indicators during navigation and data fetching.
+- Unit tests for email validation.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/DaZealous/Flutter-Test-Primed-E-Health.git
